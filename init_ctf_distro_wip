@@ -1,0 +1,51 @@
+#!/bin/bash
+
+
+echo '[*] create directory'
+mkdir %HOME/tools
+mkdir $HOME/Documents/CTF-TMP
+
+echo '[*] update distro'
+dpkg --add-architecture i386 && \
+apt-get update && \
+
+echo '[*] install main tools'
+apt-get install -y build-essential strace ltrace curl wget rubygems gcc dnsutils netcat gcc-multilib net-tools neovim gdb gdb-multiarch python python3 python3-pip python3-dev libssl-dev git make python-pip libc6:i386 libncurses5:i386 libstdc++6:i386 && \
+
+pip3 install ipython 
+
+echo '[*] install gef'
+wget -O ~/.gdbinit-gef.py -q https://github.com/hugsy/gef/raw/master/gef.py
+echo 'source ~/.gdbinit-gef.py' >> ~/.gdbinit
+
+# need to add install ghidra / cutter or radare
+# need to install qutile and load configuration
+
+
+gem install one_gadget
+
+pip3 install venv
+
+python3 -m venv .pwn
+source '.pwn/bin/activate'
+pip3 install pwntools ropper ipython
+
+python3 -m venv .angr
+source '.angr/bin/activate'
+pip3 install angr angr-management ipython
+
+python3 -m venv .cripto
+source '.cripto/bin/activate'
+pip3 install pycrypto ipython
+
+echo "alias pwn='source $HOME/.pwn/bin/activate'" >> $HOME/.zshrc
+echo "alias angr='source $HOME/.angr/bin/activate'" >> $HOME/.zshrc
+echo "alias cripto='source $HOME/.cripto/bin/activate'" >> $HOME/.zshrc
+echo "alias ctf='cd $HOME/Documents/CTF/'" >> $HOME/.zshrc
+echo "alias q='deactivate'" >> $HOME/.zshrc                                                                                            
+echo "alias ctf='cd ~/Documents/CTF-TMP/'">> $HOME/.zshrc                         
+echo "alias doc='cd ~/Documents/'" >> $HOME/.zshrc                                  
+echo "alias tool='cd ~/tools/'" >> $HOME/.zshrc                                
+
+echo "function save-ctf(){\n\tmkdir ~/Documents/$1\n\tmv -r ~/Documents/CTF-TMP/* $HOME/Documents/$1\n}" >> $HOME/.zshrc    
+
