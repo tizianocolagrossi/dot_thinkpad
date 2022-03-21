@@ -1,0 +1,7 @@
+alias cx='chmod +x'
+alias og='one_gadget'
+alias cc='cwe_checker'
+
+alias ctf='cd ~/Documents/CTF-TMP/'
+alias doc='cd ~/Documents/'
+alias tool='cd ~/tools/'
